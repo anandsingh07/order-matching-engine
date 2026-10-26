@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    // Imported by the browser terminal as well as Node: only standard JavaScript, no Node types.
+    "types": []
+  },
+  "include": ["src", "test"]
+}

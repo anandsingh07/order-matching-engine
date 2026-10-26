@@ -1,0 +1,7 @@
+[
+  { "symbol": "RELIANCE", "name": "Reliance Industries", "currency": "INR", "priceScale": 100, "quantityScale": 1, "tickSize": 5, "lotSize": 1, "referencePrice": 290000, "lastPrice": 290000 },
+  { "symbol": "TCS", "name": "Tata Consultancy Services", "currency": "INR", "priceScale": 100, "quantityScale": 1, "tickSize": 5, "lotSize": 1, "referencePrice": 410000, "lastPrice": 410000 },
+  { "symbol": "INFY", "name": "Infosys", "currency": "INR", "priceScale": 100, "quantityScale": 1, "tickSize": 5, "lotSize": 1, "referencePrice": 185000, "lastPrice": 185000 },
+  { "symbol": "HDFCBANK", "name": "HDFC Bank", "currency": "INR", "priceScale": 100, "quantityScale": 1, "tickSize": 5, "lotSize": 1, "referencePrice": 170000, "lastPrice": 170000 },
+  { "symbol": "BTCUSDT", "name": "Bitcoin / Tether", "currency": "USDT", "priceScale": 100, "quantityScale": 100000, "tickSize": 1, "lotSize": 1, "referencePrice": 8000000, "lastPrice": 8000000 }
+]

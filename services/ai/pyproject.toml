@@ -1,0 +1,9 @@
+[project]
+name = "ome-ai"
+version = "0.1.0"
+description = "Model training for the order matching engine: market-manipulation surveillance"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

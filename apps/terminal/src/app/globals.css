@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* Neo-brutalism: an off-white page, thick black outlines, hard offset shadows
+   with no blur, and flat saturated fills. Every colour is a token here, so
+   components (and the chart, which reads them at runtime) stay consistent.
+   Text colours are checked for WCAG AA (4.5:1) on every surface they sit on.
+   System fonts keep the app working offline (no font downloads at build time):
+   the display stack uses Archivo Black where installed, else Arial Black. */
+@theme static {
+  --color-bg: #fff4d6;
+  --color-panel: #fffdf7;
+  --color-raised: #f3ead0;
+  /* Outlines and dividers: solid ink. Use /15 or so for hairlines inside tables. */
+  --color-line: #111111;
+  --color-ink: #111111;
+  --color-text: #111111;
+  --color-muted: #4a4a4a;
+  /* buy / sell: text colours (prices, P&L); -fill: solid buttons and badges, with ink text on them. */
+  --color-buy: #00692f;
+  --color-buy-fill: #2bd97c;
+  --color-buy-soft: rgb(43 217 124 / 0.3);
+  --color-sell: #b80f27;
+  --color-sell-fill: #ff5a5f;
+  --color-sell-soft: rgb(255 90 95 / 0.25);
+  /* Accents are fills, never text: ink goes on top of them. */
+  --color-accent: #ffe600;
+  --color-pink: #ff5c8a;
+  --color-cyan: #4dd8ff;
+  --color-lime: #b8f23a;
+  --color-warn: #7a4e00;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Archivo Black", "Arial Black", "Segoe UI Black", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* Square-ish corners. */
+  --radius-sm: 2px;
+  --radius: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* Hard offset shadows, no blur. */
+  --shadow-brutal-sm: 2px 2px 0 0 var(--color-ink);
+  --shadow-brutal: 4px 4px 0 0 var(--color-ink);
+  --shadow-brutal-lg: 6px 6px 0 0 var(--color-ink);
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  color-scheme: light;
+}
+
+/* In the base layer, so utilities (a field's own focus style, say) still win. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400; /* the display faces are heavy already */
+    letter-spacing: 0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+}
+
+/* Prices line up in columns. */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* An outlined box that stands off the page. */
+@utility brutal {
+  border: 2px solid var(--color-ink);
+  box-shadow: var(--shadow-brutal);
+}
+
+/*
+ * A button that presses: it stands on a hard shadow and, when pushed, moves
+ * into it. Colours come from the bg-/text- classes alongside.
+ */
+@utility btn {
+  border: 2px solid var(--color-ink);
+  box-shadow: var(--shadow-brutal-sm);
+  font-weight: 700;
+  transition:
+    transform 60ms ease-out,
+    box-shadow 60ms ease-out;
+  &:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 0 var(--color-ink);
+  }
+  &:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 0 var(--color-ink);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+/* A text field: white, outlined, with an inset ink edge when focused. */
+@utility field {
+  border: 2px solid var(--color-ink);
+  background: #ffffff;
+  outline: none;
+  &:focus {
+    box-shadow: var(--shadow-brutal-sm);
+    background: #fffbe0;
+  }
+  &::placeholder {
+    color: var(--color-muted);
+  }
+}

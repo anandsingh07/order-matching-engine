@@ -1,0 +1,24 @@
+{
+  "name": "@ome/surveillance",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "dataset": "tsx src/dataset.ts"
+  },
+  "dependencies": {
+    "@ome/core": "workspace:*",
+    "onnxruntime-node": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}

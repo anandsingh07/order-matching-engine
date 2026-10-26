@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    // src/pricing.ts imports @ome/pricing by path until it is a declared dependency,
+    // so the program includes a file outside this package.
+    "rootDir": "../..",
+    "lib": ["ES2024", "DOM"]
+  },
+  "include": ["src", "test"]
+}

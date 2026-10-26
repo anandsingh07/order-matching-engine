@@ -1,0 +1,25 @@
+{
+  "name": "@ome/engine-rs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build:wasm": "node scripts/build-wasm.mjs",
+    "bench": "tsx bench/run.ts"
+  },
+  "dependencies": {
+    "@ome/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "fast-check": "^4.10.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}

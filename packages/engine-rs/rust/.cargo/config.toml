@@ -1,0 +1,6 @@
+# Panic locations embed source paths. Cargo passes them relative to the
+# crate, so they hold nothing machine-specific, except that Windows writes
+# src\book.rs where Linux and macOS write src/book.rs. Mapping the one to the
+# other makes every host embed the same paths.
+[target.wasm32-unknown-unknown]
+rustflags = ['--remap-path-prefix=src\=src/']

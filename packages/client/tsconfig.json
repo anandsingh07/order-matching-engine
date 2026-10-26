@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "lib": ["ES2024", "DOM"],
+    // Runs in browsers as well as Node: only standard web APIs, no Node types.
+    "types": []
+  },
+  "include": ["src", "test"]
+}

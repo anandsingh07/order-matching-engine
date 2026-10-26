@@ -1,0 +1,30 @@
+{
+  "name": "@ome/bots",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "compare": "tsx src/compare.ts",
+    "derivatives": "tsx src/derivatives-live.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ome/client": "workspace:*",
+    "@ome/surveillance": "workspace:*",
+    "onnxruntime-node": "^1.30.0",
+    "tsx": "^4.23.15"
+  },
+  "devDependencies": {
+    "@ome/exchange": "workspace:*",
+    "@ome/gateway": "workspace:*",
+    "@types/node": "^24.19.2",
+    "fast-check": "^4.10.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@ome/backtest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "backtest": "tsx src/cli.ts",
+    "download": "tsx src/download.ts"
+  },
+  "dependencies": {
+    "@ome/bots": "workspace:*",
+    "@ome/client": "workspace:*",
+    "@ome/core": "workspace:*",
+    "@ome/volatility": "workspace:*",
+    "onnxruntime-node": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "fast-check": "^4.10.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}

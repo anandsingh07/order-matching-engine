@@ -1,0 +1,21 @@
+{
+  "name": "order-matching-engine",
+  "private": true,
+  "packageManager": "pnpm@10.34.8",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "bench": "pnpm --filter @ome/core bench",
+    "gateway": "pnpm --filter @ome/gateway start",
+    "bots": "pnpm --filter @ome/bots start",
+    "terminal": "pnpm --filter @ome/terminal dev",
+    "surveillance:data": "pnpm --filter @ome/surveillance dataset -- --seeds=150 --minutes=10 --out=../../services/ai/data/surveillance.csv",
+    "e2e": "pnpm --filter @ome/terminal e2e"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
+  }
+}

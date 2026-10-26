@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  // Tests and the evaluation script run in Node. tsconfig.browser.json checks
+  // that src itself needs nothing but standard web APIs.
+  "compilerOptions": {
+    "lib": ["ES2024", "DOM"]
+  },
+  "include": ["src", "test", "eval"]
+}

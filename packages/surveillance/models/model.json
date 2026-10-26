@@ -1,0 +1,243 @@
+{
+  "version": 1,
+  "trained_at": "2026-10-24T14:47:36+00:00",
+  "features": [
+    "log_orders_per_min",
+    "cancel_ratio",
+    "log_order_to_trade",
+    "log_median_lifetime_ms",
+    "fill_ratio",
+    "log_size_vs_touch",
+    "mean_distance_bps",
+    "cancel_after_opposite_fill",
+    "log_trades",
+    "excess_concentration",
+    "excess_partner_exclusivity",
+    "two_way_counterparty_share",
+    "net_to_gross",
+    "taker_share",
+    "resting_side_imbalance",
+    "max_levels_one_side"
+  ],
+  "labels": [
+    "honest",
+    "spoofing",
+    "layering",
+    "wash_trading",
+    "pump_and_dump"
+  ],
+  "thresholds": {
+    "classifier": 0.7293091416358948,
+    "anomaly": -12.49929428100586
+  },
+  "baseline": {
+    "log_orders_per_min": {
+      "median": 1.653213,
+      "iqr": 1.221337
+    },
+    "cancel_ratio": {
+      "median": 0.25,
+      "iqr": 0.670203
+    },
+    "log_order_to_trade": {
+      "median": -0.036642,
+      "iqr": 0.335882
+    },
+    "log_median_lifetime_ms": {
+      "median": 3.740442,
+      "iqr": 1.266799
+    },
+    "fill_ratio": {
+      "median": 0.673684,
+      "iqr": 0.636526
+    },
+    "log_size_vs_touch": {
+      "median": 0.146884,
+      "iqr": 0.143921
+    },
+    "mean_distance_bps": {
+      "median": 1.655552,
+      "iqr": 2.375169
+    },
+    "cancel_after_opposite_fill": {
+      "median": 0.2,
+      "iqr": 0.6
+    },
+    "log_trades": {
+      "median": 1.322219,
+      "iqr": 0.748188
+    },
+    "excess_concentration": {
+      "median": 0.173543,
+      "iqr": 0.181005
+    },
+    "excess_partner_exclusivity": {
+      "median": 0.0,
+      "iqr": 0.123764
+    },
+    "two_way_counterparty_share": {
+      "median": 0.702703,
+      "iqr": 0.853413
+    },
+    "net_to_gross": {
+      "median": 0.213115,
+      "iqr": 0.407962
+    },
+    "taker_share": {
+      "median": 0.422535,
+      "iqr": 0.444255
+    },
+    "resting_side_imbalance": {
+      "median": 0.141026,
+      "iqr": 0.419963
+    },
+    "max_levels_one_side": {
+      "median": 3.0,
+      "iqr": 3.0
+    }
+  },
+  "feature_importance": {
+    "mean_distance_bps": 0.3581,
+    "log_orders_per_min": 0.118,
+    "log_trades": 0.1157,
+    "log_median_lifetime_ms": 0.1134,
+    "max_levels_one_side": 0.0837,
+    "cancel_ratio": 0.0595,
+    "excess_partner_exclusivity": 0.0562,
+    "fill_ratio": 0.0344,
+    "taker_share": 0.0322,
+    "resting_side_imbalance": 0.0091,
+    "log_order_to_trade": 0.0068,
+    "cancel_after_opposite_fill": 0.0035,
+    "net_to_gross": 0.0031,
+    "excess_concentration": 0.003,
+    "log_size_vs_touch": 0.0019,
+    "two_way_counterparty_share": 0.0013
+  },
+  "dataset": {
+    "train_windows": 72391,
+    "validation_windows": 16252,
+    "test_windows": 22784,
+    "train_markets": 98,
+    "validation_markets": 22,
+    "test_markets": 30
+  },
+  "metrics": {
+    "detected_by_intensity": {
+      "subtle": {
+        "detected": 0.9468,
+        "windows": 1972
+      },
+      "medium": {
+        "detected": 0.9711,
+        "windows": 2318
+      },
+      "blatant": {
+        "detected": 0.9986,
+        "windows": 2204
+      }
+    },
+    "unseen_manipulation": {
+      "labels": [
+        "quote_stuffing"
+      ],
+      "windows": 1014,
+      "detected": 0.997,
+      "detected_by_anomaly_model": 0.997,
+      "detected_by_classifier": 0.0049
+    },
+    "per_class": {
+      "honest": {
+        "precision": 0.9931,
+        "recall": 0.9744,
+        "f1": 0.9837,
+        "windows": 16290
+      },
+      "spoofing": {
+        "precision": 0.9927,
+        "recall": 0.9655,
+        "f1": 0.9789,
+        "windows": 1276
+      },
+      "layering": {
+        "precision": 0.9815,
+        "recall": 0.9963,
+        "f1": 0.9888,
+        "windows": 1334
+      },
+      "wash_trading": {
+        "precision": 0.8699,
+        "recall": 0.9753,
+        "f1": 0.9196,
+        "windows": 2550
+      },
+      "pump_and_dump": {
+        "precision": 0.9785,
+        "recall": 0.988,
+        "f1": 0.9832,
+        "windows": 1334
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "honest",
+        "spoofing",
+        "layering",
+        "wash_trading",
+        "pump_and_dump"
+      ],
+      "rows_true_columns_predicted": [
+        [
+          15873,
+          9,
+          14,
+          366,
+          28
+        ],
+        [
+          33,
+          1232,
+          11,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          1329,
+          0,
+          0
+        ],
+        [
+          62,
+          0,
+          0,
+          2487,
+          1
+        ],
+        [
+          10,
+          0,
+          0,
+          6,
+          1318
+        ]
+      ]
+    },
+    "manipulation_detected": 0.9731,
+    "honest_false_positive_rate": 0.0222,
+    "classifier_only": {
+      "manipulation_detected": 0.9726,
+      "honest_false_positive_rate": 0.011
+    },
+    "anomaly_only": {
+      "manipulation_detected": 0.5778,
+      "honest_false_positive_rate": 0.0115
+    }
+  },
+  "onnx_parity": {
+    "classifier_max_abs_diff": 0.016353774943064003,
+    "classifier_same_prediction": 1.0,
+    "anomaly_max_rel_diff": 2.3530234102508985e-05
+  }
+}

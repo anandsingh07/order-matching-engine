@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "trained_at": "2026-10-24T21:10:31+00:00",
+  "data": {
+    "symbol": "BTCUSDT",
+    "minutes": 129600,
+    "from": "2026-07-26T20:34:00+00:00",
+    "to": "2026-10-24T20:33:00+00:00",
+    "split": "walk-forward validation over 40-80% (four windows), test on the last 20%"
+  },
+  "horizon_minutes": 15,
+  "windows": [
+    5,
+    15,
+    60,
+    240
+  ],
+  "features": [
+    "log_rv_5m",
+    "log_rv_15m",
+    "log_rv_60m",
+    "log_rv_240m",
+    "log_range_15m"
+  ],
+  "chosen": "ewma",
+  "best_in_walk_forward": "lightgbm",
+  "chosen_by": "simplest model not significantly worse than the best in walk-forward QLIKE (Diebold-Mariano, 5%)",
+  "live_model": "ewma",
+  "live_model_note": "the chosen model",
+  "models": {
+    "har": {
+      "intercept": -0.21041467240685416,
+      "coefficients": [
+        0.08904130385214572,
+        0.08715065853852982,
+        0.3546510408056277,
+        0.27440420744841904,
+        0.14612719764281373
+      ]
+    },
+    "ewma": {
+      "lambda": 0.98
+    },
+    "garch": {
+      "omega": 0.11284664340150648,
+      "alpha": 0.09673611091014685,
+      "beta": 0.9017218429788901,
+      "scale": 10000.0
+    }
+  },
+  "results": {
+    "ewma": {
+      "walk_forward_qlike": 0.41657,
+      "per_window_qlike": [
+        0.4091,
+        0.43556,
+        0.38079,
+        0.44083
+      ],
+      "p_worse_than_best": 0.0767,
+      "test": {
+        "qlike": 0.46282,
+        "rmse_log_vol": 0.43707,
+        "r2_log_vol": 0.542
+      }
+    },
+    "har": {
+      "walk_forward_qlike": 0.40574,
+      "per_window_qlike": [
+        0.39951,
+        0.41086,
+        0.37179,
+        0.44079
+      ],
+      "p_worse_than_best": 0.2598,
+      "test": {
+        "qlike": 0.40676,
+        "rmse_log_vol": 0.46355,
+        "r2_log_vol": 0.569
+      }
+    },
+    "garch": {
+      "walk_forward_qlike": 0.40752,
+      "per_window_qlike": [
+        0.39465,
+        0.42412,
+        0.38207,
+        0.42925
+      ],
+      "p_worse_than_best": 0.2851,
+      "test": {
+        "qlike": 0.41945,
+        "rmse_log_vol": 0.44932,
+        "r2_log_vol": 0.524
+      }
+    },
+    "lightgbm": {
+      "walk_forward_qlike": 0.40136,
+      "per_window_qlike": [
+        0.38691,
+        0.39888,
+        0.37122,
+        0.44843
+      ],
+      "p_worse_than_best": 1.0,
+      "test": {
+        "qlike": 0.39654,
+        "rmse_log_vol": 0.4541,
+        "r2_log_vol": 0.5687
+      }
+    },
+    "lstm": {
+      "walk_forward_qlike": 0.78932,
+      "per_window_qlike": [
+        0.57084,
+        0.67042,
+        1.48165,
+        0.43439
+      ],
+      "p_worse_than_best": 0.0,
+      "test": {
+        "qlike": 0.40855,
+        "rmse_log_vol": 0.48706,
+        "r2_log_vol": 0.567
+      }
+    }
+  }
+}

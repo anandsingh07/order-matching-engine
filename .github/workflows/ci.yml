@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 2 * * *" # nightly deep property-test run
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm --filter @ome/terminal lint
+      - run: pnpm test
+      - run: pnpm --filter @ome/terminal build
+
+  ai:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/ai
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: services/ai/requirements.txt
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @ome/terminal exec playwright install --with-deps chromium
+      - run: pnpm --filter @ome/terminal e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: apps/terminal/test-results
+
+  # The images and the whole stack, as a user runs them with docker compose.
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
+      - run: docker compose up -d
+      - name: Wait for the gateway and the terminal
+        run: |
+          for i in $(seq 1 90); do curl -fsS http://localhost:8080/api/health && break; sleep 2; done
+          for i in $(seq 1 90); do curl -fsS -o /dev/null http://localhost:3000 && break; sleep 2; done
+          curl -fsS http://localhost:8080/api/health
+      - name: The bots make a market through the gateway
+        run: |
+          sleep 20
+          trades=$(curl -fsS http://localhost:8080/api/trades/TCS | jq length)
+          echo "TCS trades: $trades"
+          test "$trades" -gt 0
+          curl -fsS http://localhost:3000 | grep -qi "<html"
+      - name: The books survive a gateway restart (durable volume)
+        run: |
+          # SIGKILL, so the bots cannot cancel their quotes on the way out: the book keeps resting orders.
+          docker compose kill -s SIGKILL bots
+          before=$(curl -fsS "http://localhost:8080/api/book/TCS?levels=50" | jq '[.bids[].orders, .asks[].orders] | add // 0')
+          test "$before" -gt 0
+          docker compose restart gateway
+          for i in $(seq 1 90); do curl -fsS http://localhost:8080/api/health && break; sleep 2; done
+          after=$(curl -fsS "http://localhost:8080/api/book/TCS?levels=50" | jq '[.bids[].orders, .asks[].orders] | add // 0')
+          echo "resting TCS orders before restart: $before, after: $after"
+          test "$after" -eq "$before"
+      - if: failure()
+        run: docker compose logs --tail=200
+      - if: always()
+        run: docker compose down -v
+
+  deep-fuzz:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+        env:
+          FC_RUNS: "20000"

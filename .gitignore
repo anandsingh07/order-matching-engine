@@ -1,0 +1,20 @@
+node_modules/
+dist/
+coverage/
+.next/
+test-results/
+playwright-report/
+data/
+*.jsonl
+.venv/
+__pycache__/
+.pytest_cache/
+*.log
+.env
+.env.*
+.DS_Store
+
+# Kept out of the public repo: private interview notes and the large demo videos
+docs/INTERVIEW_GUIDE.md
+docs/demo.mp4
+docs/demo.webm

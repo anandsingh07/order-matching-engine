@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    // src/worker.ts imports @ome/engine-rs by path until the next `pnpm install` links it,
+    // so the program includes files outside this package.
+    "rootDir": "../.."
+  },
+  "include": ["src", "test", "bench"]
+}

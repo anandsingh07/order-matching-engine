@@ -1,0 +1,15 @@
+**/node_modules
+**/.next
+**/dist
+**/coverage
+**/test-results
+**/playwright-report
+**/*.log
+**/*.jsonl
+.git
+.github
+data
+services/ai
+docs
+.env
+.env.*

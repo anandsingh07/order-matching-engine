@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2024"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    // Packages run from TypeScript source (tsx, Next.js), so tsc only type-checks.
+    // That also allows importing ".ts" paths, which the browser bundler needs.
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
+  }
+}
